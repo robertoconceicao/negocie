@@ -23,5 +23,11 @@ negocieApp.config(function($routeProvider) {
 		.when('/contact', {
 			templateUrl : 'pages/contact.html',
 			controller  : 'contactController'
+		})
+		
+		// route for the anuncie page
+		.when('/anuncie', {
+			templateUrl : 'pages/anuncie.html',
+			controller  : 'anuncioController'
 		});
 });

@@ -14,6 +14,10 @@ negocieControllers.controller('contactController', function($scope) {
 	$scope.message = 'Contact us! JK. This is just a demo.';
 });
 
+negocieControllers.controller('anuncioController', function($scope) {
+	$scope.message = 'Cadastro de anúncio.';
+});
+
 /*
 negocieControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function ($scope, $http) {
