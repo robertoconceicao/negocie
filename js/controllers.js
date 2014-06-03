@@ -14,8 +14,17 @@ negocieControllers.controller('contactController', function($scope) {
 	$scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-negocieControllers.controller('anuncioController', function($scope) {
+negocieControllers.controller('anuncioController', function($scope, $http) {
 	$scope.message = 'Cadastro de anúncio.';
+	
+//	getCategorias(); // Load all available categorias 
+  	function getCategorias(){  
+  		$http.get("ajax/getCategorias.php").success(function(data){
+        	$scope.categorias = data;
+       });
+  	};	
+	
+	getCategorias();
 });
 
 /*

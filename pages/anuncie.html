@@ -2,4 +2,15 @@
 	<h1>Anúncio</h1>
 	
 	<p>{{ message }}</p>
+    
+    <div class="panel">
+        <ul>
+            <li ng-repeat="categoria in categorias">
+            
+               
+              {{categoria.cdcategoria}} | {{categoria.nmcategoria}}
+            </li>
+        </ul>
+	</div>
+
 </div>
