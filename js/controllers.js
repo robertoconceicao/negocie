@@ -15,7 +15,7 @@ negocieControllers.controller('contactController', function($scope) {
 });
 
 negocieControllers.controller('anuncioController', function($scope, $http) {
-	$scope.message = 'Cadastro de anúncio.';
+	$scope.message = 'Cadastro de anúncio';
 	
 //	getCategorias(); // Load all available categorias 
   	function getCategorias(){  
