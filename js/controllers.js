@@ -17,7 +17,6 @@ negocieControllers.controller('contactController', function($scope) {
 negocieControllers.controller('anuncioController', function($scope, $http) {
 	$scope.message = 'Cadastro de anúncio';
 	
-//	getCategorias(); // Load all available categorias 
   	function getCategorias(){  
   		$http.get("ajax/getCategorias.php").success(function(data){
         	$scope.categorias = data;
@@ -26,6 +25,24 @@ negocieControllers.controller('anuncioController', function($scope, $http) {
 	
 	getCategorias();
 });
+
+negocieControllers.controller('estadosController', function($scope, $http) {	 
+  	function getEstados(){
+  		$http.get("ajax/getEstados.php").success(function(estados){
+        	$scope.estados = estados;
+       });
+  	};
+  	
+  	getEstados();
+  	
+  	function getCidades(estado_id){
+  		$http.get("ajax/getCidades.php",{params: {estado_id: estado_id}}).success(function(cidades){  			
+  			$scope.cidades = cidades;
+  		});
+  	};
+});
+
+
 
 /*
 negocieControllers.controller('PhoneListCtrl', ['$scope', '$http',
