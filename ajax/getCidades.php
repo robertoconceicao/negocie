@@ -1,8 +1,10 @@
 <?php 
 require_once 'db.php'; // The mysql database connection script
 
-$estado_id = $_GET['estado_id'];
-$query=mysql_query(" SELECT * FROM cidade where estado = $estado_id") or die(mysql_error());
+//$estado_id = $_GET['estado_id'];
+
+//$query=mysql_query(" SELECT * FROM cidade where estado = $estado_id") or die(mysql_error());
+$query=mysql_query(" SELECT * FROM cidade ") or die(mysql_error());
 
 # Collect the results
 while($obj = mysql_fetch_object($query)) {

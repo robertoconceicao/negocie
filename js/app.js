@@ -5,7 +5,8 @@
 var negocieApp = angular.module('negocieApp', [
 	'ngRoute',
 	'negocieControllers',
-	'flow'
+	'flow',
+	'Filters'
 	]);
 
 negocieApp.config(['flowFactoryProvider', function (flowFactoryProvider) {

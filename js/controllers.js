@@ -1,3 +1,5 @@
+'use strict';
+
 var negocieControllers = angular.module('negocieControllers', []);
 
 // create the controller and inject Angular's $scope
@@ -29,17 +31,22 @@ negocieControllers.controller('anuncioController', function($scope, $http) {
 negocieControllers.controller('estadosController', function($scope, $http) {	 
   	function getEstados(){
   		$http.get("ajax/getEstados.php").success(function(estados){
-        	$scope.estados = estados;
+        	$scope.estados = estados;        	
        });
   	};
+  	  	
+  	$scope.myEstado = "";
+  	$scope.myCidade = "";
   	
-  	getEstados();
-  	
-  	function getCidades(estado_id){
-  		$http.get("ajax/getCidades.php",{params: {estado_id: estado_id}}).success(function(cidades){  			
+  	function getCidades(){
+  		$http.get("ajax/getCidades.php",{params: {estado_id: $scope.myEstado.id}}).success(function(cidades){  			
   			$scope.cidades = cidades;
   		});
-  	};
+  	};  	
+  	
+  	
+  	getEstados();
+  	getCidades();
 });
 
 
