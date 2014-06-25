@@ -1,5 +1,6 @@
 <?php
-$tempDir = __DIR__ . DIRECTORY_SEPARATOR . 'temp';
+//$tempDir = __DIR__ . DIRECTORY_SEPARATOR . 'temp';
+$tempDir = 'temp';
 if (!file_exists($tempDir)) {
 	mkdir($tempDir);
 }

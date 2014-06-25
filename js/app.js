@@ -11,7 +11,7 @@ var negocieApp = angular.module('negocieApp', [
 
 negocieApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.defaults = {
-      target: '',
+      target: 'upload.php',
       permanentErrors: [500, 501],
 	  
       maxChunkRetries: 1,
