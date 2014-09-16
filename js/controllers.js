@@ -16,7 +16,7 @@ negocieControllers.controller('contactController', function($scope) {
 	$scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-negocieControllers.controller('anuncioController', function($scope, $http) {
+negocieControllers.controller('anuncioController', function($scope, $http, promiseTracker, $timeout) {
 	$scope.message = 'Cadastro de anúncio';
 	
   	function getCategorias(){  
@@ -26,6 +26,37 @@ negocieControllers.controller('anuncioController', function($scope, $http) {
   	};	
 	
 	getCategorias();
+	
+	$scope.anuncio = {};
+	$scope.submitAnuncio = function (anuncio, resultVarName){
+	  // Default values for the request.
+      $scope.progress = promiseTracker('progress');
+      
+      var config = {
+        params: {
+          anuncio: anuncio
+        },
+        tracker : 'progress'
+      };
+
+      $http.post("ajax/postAnuncio.php", null, config)
+        .success(function (data, status, headers, config)
+        { 
+          $scope.messages = 'Anúncio cadastrado com sucesso!';
+          $scope.error = null;
+        })
+        .error(function (data, status, headers, config)
+        {
+        	$scope.messages = null;
+            $scope.error = 'Erro ao tentar cadastrar o anúncio.';
+        });
+    };
+    
+ // Hide the status message which was set above after n seconds.
+    $timeout(function() {
+      $scope.messages = null;
+      $scope.error = null;
+    }, 5000);
 });
 
 negocieControllers.controller('estadosController', function($scope, $http) {	 
@@ -50,6 +81,38 @@ negocieControllers.controller('estadosController', function($scope, $http) {
 });
 
 
+negocieControllers.controller('listaAnuncioController', function($scope, $http) {
+	$scope.page = 1;
+	$scope.rows = 10;
+	$scope.total = null;
+	$scope.anuncios = null;
+	$scope.error = null;
+	$scope.message = null;
+	
+	function listaAnuncio(page){
+		
+		var config = {
+	        params: {
+	          page: page,
+	          rows: $scope.rows
+	        }
+	      };
+
+		$http.get("ajax/getListaAnuncios.php",config)
+			.success(function(data, status, headers, config){
+				$scope.anuncios = data.rows;
+				$scope.total = data.total;
+				$scope.messages = data;
+				$scope.error = null;
+			})
+			.error(function (data, status, headers, config){
+				$scope.error = "Erro na listagem";
+				$scope.message = null; 
+			});
+	};
+	
+	listaAnuncio();
+});
 
 /*
 negocieControllers.controller('PhoneListCtrl', ['$scope', '$http',

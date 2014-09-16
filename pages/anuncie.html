@@ -1,14 +1,21 @@
-	<h1>{{ message }}</h1>
+<div ng-controller="anuncioController"> 	
+	<h1>Cadastro de anúncio</h1>
 	<p class="help-block">
 		Preencha o formulário abaixo e clique em "Publicar grátis".<br /> 
  	   	Os campos marcados com asterisco (*) são obrigatórios 
  	</p>
- 	
-	<form class="form-horizontal" role="form">
+	<form class="form-horizontal" ng-submit="submitAnuncio(anuncio, 'message')">
+		<div class="form-group">				
+  			<div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
+  			<div id="error" class="alert alert-danger" data-ng-show="error" data-ng-bind="error"></div>
+  		</div>
+  		
 	  <div class="form-group">
+	  	<input type="hidden" name="id" class="form-control" ng-model="anuncio.id">
+	  	
 		<label for="itCategoria" class="col-sm-2 control-label">Categoria:</label>
 		<div class="col-sm-10">
-			<select id="itCategoria" class="form-control" ng-model="myCategoria" ng-options="categoria.nmcategoria for categoria in categorias">
+			<select id="itCategoria" class="form-control" ng-model="anuncio.categoria" ng-options="categoria.nmcategoria for categoria in categorias">
 			  <option value="">-- selecione uma categoria --</option>
 			</select>            
 		</div>
@@ -17,11 +24,12 @@
 	  <div class="form-group">
 		<label for="itTitulo" class="col-sm-2 control-label">Título do anúncio:</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="itTitulo" placeholder="Título do anúncio">
+		  <input type="text" class="form-control" id="itTitulo" placeholder="Título do anúncio" ng-model="anuncio.titulo">
 		</div>
 	  </div>      
       
-	  <div class="form-group">	  
+      <!-- TODO por enquanto esta hide -->
+	  <div class="form-group hide" >	  
 	  	<label class="col-sm-2 control-label">Fotos produto:</label>
 	  			  
 		<div class="col-sm-10">
@@ -36,7 +44,7 @@
 					Arraste e solte as fotos aqui
 				  </div>
 				<br />
-				<!-- As imagens aparecerao aqui -->
+				<!-- As imagens aparecerao aqui -->				
 				<div ng-repeat="file in $flow.files" class="gallery-box ng-scope">				
 				  <span class="title ng-binding">{{file.name}}</span>
 				  <div class="thumbnail" ng-show="$flow.files.length">
@@ -62,7 +70,7 @@
       <div class="form-group">
 		<label for="itDescricao" class="col-sm-2 control-label">Descrição*:</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="5" id="itDescricao" placeholder="Vendo uma TV de 32 polegadas ... " ></textarea>		
+			<textarea class="form-control" rows="5" id="itDescricao" placeholder="Vendo uma TV de 32 polegadas ... " ng-model="anuncio.descricao"></textarea>		
 		</div>
 	  </div>
       
@@ -71,7 +79,7 @@
 		<div class="col-sm-10">
 			<div class="input-group">
 				<span class="input-group-addon">R$</span>
-		  		<input type="text" class="form-control" id="itPreco">
+		  		<input type="text" class="form-control" id="itPreco" ng-model="anuncio.preco">
 		  	</div>
 		</div>
 	  </div>
@@ -83,7 +91,7 @@
 	  <div class="form-group">
 		<label for="itNomeContato" class="col-sm-2 control-label">Nome de contato*:</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="itNomeContato">
+		  <input type="text" class="form-control" id="itNomeContato" ng-model="anuncio.nome">
 		</div>
 	  </div>
 	
@@ -92,7 +100,7 @@
 		<div class="col-sm-10">
 		  <div class="input-group">
 			  <span class="input-group-addon">@</span>
-			  <input type="text" class="form-control" id="itEmail" placeholder="Ex.: fulano@gmail.com">
+			  <input type="text" class="form-control" id="itEmail" placeholder="Ex.: fulano@gmail.com" ng-model="anuncio.email">
 		  </div>
 		</div>
 	  </div>
@@ -102,7 +110,7 @@
 		<div class="col-sm-10">
 			<div class="input-group">
 				<span class="input-group-addon glyphicon glyphicon-phone"></span>
-		  		<input type="text" class="form-control" id="itTelefone" placeholder="(00) 0000 0000">
+		  		<input type="text" class="form-control" id="itTelefone" placeholder="(00) 0000 0000" ng-model="anuncio.telefone">
 		  	</div>
 		</div>
 	  </div>
@@ -112,7 +120,7 @@
 		  <div class="form-group">
 			<label for="itEstado" class="col-sm-2 control-label">Estado:</label>	  	
 			<div class="col-sm-10">
-				<select id="itEstado" class="form-control" ng-model="myEstado"
+				<select id="itEstado" class="form-control" ng-model="anuncio.estado"
 					ng-options="estado.nome for estado in estados">
 				  <option value="">-- selecione o estado --</option>
 				</select>
@@ -122,8 +130,8 @@
 		  <div class="form-group">
 			<label for="itCidade" class="col-sm-2 control-label">Cidade:</label>
 			<div class="col-sm-10">
-			   <select id="itCidade" class="form-control" ng-model="myCidade" 
-			   		ng-options="cidade.nome for cidade in cidades | cidades: myEstado">
+			   <select id="itCidade" class="form-control" ng-model="anuncio.cidade" 
+			   		ng-options="cidade.nome for cidade in cidades | cidades: anuncio.estado">
 				  <option value="">-- selecione a cidade --</option>
 			   </select>
 			</div>
@@ -137,3 +145,4 @@
 		</div>
 	  </div>
 	</form>
+</div>

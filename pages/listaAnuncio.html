@@ -1,0 +1,29 @@
+<div ng-controller="listaAnuncioController">	
+	<h1>Lista de Anúncios</h1>
+	
+	<form class="form-horizontal">		
+		<div class="container-fluid">
+		  <div class="row">		    
+		    <div class="col-md-10">
+		      <!--Body content-->
+		
+		      <ul class="anuncios">
+		        <li ng-repeat="anuncio in anuncios " class="thumbnail anuncio-listing">
+		          <a href="#/anuncio/{{anuncio.cdanuncio}}" class="thumb"><img ng-src="{{anuncio.imagemUrl}}"></a>
+		          <a href="#/anuncio/{{anuncio.cdanuncio}}">{{anuncio.titulo}}</a>
+		          <p>{{anuncio.descricao}}</p>
+		        </li>
+		      </ul>
+		      
+			  <p data-ng-show="total"><strong>Total Elementos: {{total}}</strong></p>
+		    </div>
+		  </div>
+		</div>
+	</form>
+	
+	<hr />
+	<p class="help-block">
+	<strong>Objeto JSon recebido</strong><br />
+	{{ messages | json }}
+	</p>
+</div>

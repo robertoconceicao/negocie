@@ -6,7 +6,8 @@ var negocieApp = angular.module('negocieApp', [
 	'ngRoute',
 	'negocieControllers',
 	'flow',
-	'Filters'
+	'Filters',
+	'ajoslin.promise-tracker'
 	]);
 
 negocieApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
@@ -50,5 +51,10 @@ negocieApp.config(function($routeProvider) {
 		.when('/anuncie', {
 			templateUrl : 'pages/anuncie.html',
 			controller  : 'anuncioController'
+		})
+		
+		.when('/listaAnuncios', {
+			templateUrl : 'pages/listaAnuncio.html',
+			controller  : 'listaAnuncioController'
 		});
 });
