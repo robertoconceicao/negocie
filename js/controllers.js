@@ -84,12 +84,14 @@ negocieControllers.controller('estadosController', function($scope, $http) {
 negocieControllers.controller('listaAnuncioController', function($scope, $http) {
 	$scope.page = 1;
 	$scope.rows = 10;
+	$scope.numberOfPages = 1;
+	$scope.pages = null;
 	$scope.total = null;
-	$scope.anuncios = null;
+	$scope.anuncios = null;	
 	$scope.error = null;
 	$scope.message = null;
 	
-	function listaAnuncio(page){
+	$scope.listaAnuncio = function (page){
 		
 		var config = {
 	        params: {
@@ -102,6 +104,9 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 			.success(function(data, status, headers, config){
 				$scope.anuncios = data.rows;
 				$scope.total = data.total;
+				$scope.page = data.page;				
+				$scope.pages = data.pages;				
+				$scope.numberOfPages = data.numberOfPages;				
 				$scope.messages = data;
 				$scope.error = null;
 			})
@@ -109,9 +114,26 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 				$scope.error = "Erro na listagem";
 				$scope.message = null; 
 			});
-	};
+	};	
 	
-	listaAnuncio();
+	$scope.changePage = function(numPage){
+		$scope.listaAnuncio(numPage);
+	}
+	
+	$scope.prevPage = function(numPage){
+	    if($scope.page-1 > 0){	    	
+	        $scope.changePage(numPage);
+	    }
+	}
+
+	$scope.nextPage = function(numPage){
+	    if($scope.page+1 <= $scope.numberOfPages){
+	        $scope.changePage(numPage);
+	    }
+	}
+	
+	// a primeira vez q abre a janela ja chama
+	$scope.listaAnuncio(1);
 });
 
 /*

@@ -4,7 +4,7 @@
 	<form class="form-horizontal">		
 		<div class="container-fluid">
 		  <div class="row">		    
-		    <div class="col-md-10">
+		    <div class="col-md-12">
 		      <!--Body content-->
 		
 		      <ul class="anuncios">
@@ -17,6 +17,22 @@
 		      
 			  <p data-ng-show="total"><strong>Total Elementos: {{total}}</strong></p>
 		    </div>
+		  </div>
+		  
+		  <div class="col-md-12">	  
+			  <ul class="pagination">
+				    <li ng-class="{disabled: page == 1}">
+				    	<a href="" ng-click="prevPage(page-1)">&laquo;</a>
+				    </li>				    
+				    
+				    <li ng-repeat="p in pages" ng-class="{active: p == page}">				    	
+				    	<a href="" ng-click="changePage(p)">{{p}}<span class="sr-only"></span></a>
+				    </li>
+				    
+				    <li ng-class="{disabled: page == numberOfPages}">
+				    	<a href="" ng-click="nextPage(page+1)">&raquo;</a>
+				    </li>
+			  </ul>
 		  </div>
 		</div>
 	</form>
