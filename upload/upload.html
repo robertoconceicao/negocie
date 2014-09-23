@@ -1,0 +1,34 @@
+<div ng-controller="uploadController">
+	<h1>Upload foto</h1>
+	<form ng-submit="submitFoto(anuncio, 'message')" enctype="multipart/form-data" name="cadastro" >
+	      <input type="hidden" name="cdanuncio" class="form-control" ng-model="cdanuncio">
+		  Foto de exibição:<br />
+		  
+		  <input type="file" name="foto" ng-model="foto"/><br /><br />
+	
+	
+		  <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+			  <button type="submit" class="btn btn-success btn-lg">Enviar</button>
+			</div>
+		  </div>
+	</form>
+	
+	<hr />
+	
+	<h1>Fotos</h1>
+	
+	<div class="col-md-12">	  
+	  <ul>  
+	    <li ng-repeat="foto in fotos" class="col-md-3">				    	
+	    	<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='100' width='100'/>
+	    </li>		  
+	  </ul>
+	</div>
+	
+	<hr />
+	<p class="help-block">
+	<strong>Objeto JSon recebido</strong><br />
+		{{ fotos | json }}
+	</p>
+</div>

@@ -136,6 +136,53 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 	$scope.listaAnuncio(1);
 });
 
+
+negocieControllers.controller('uploadController', function($scope, $http) {
+	$scope.fotos = null;
+	$scope.cdanuncio = null;
+	
+	$scope.getFotos = function (cdanuncio){ 
+  		var config = {
+	        params: {
+	          cdanuncio: cdanuncio
+	        }
+	    };
+  		
+  		$http.get("upload/getFotos.php", config)
+  			.success(function(data, status, headers, config){
+	        	$scope.fotos = data.fotos;
+	        	$scope.cdanuncio = data.cdanuncio;	        	
+	       }).error(function (data, status, headers, config){
+				$scope.error = "Erro na ao carregar as fotos";
+				$scope.message = null;				
+			});
+  	};	
+	
+	
+	$scope.submitFoto = function (cdanuncio){
+	  
+	  formData = $scope.form;
+
+
+      $http.post("upload/postFoto.php", JSON.stringify(formData))
+        .success(function (data, status, headers, config)
+        { 
+          $scope.messages = 'sucesso!';
+          $scope.error = null;
+          
+          $scope.getFotos();
+        })
+        .error(function (data, status, headers, config)
+        {
+        	$scope.messages = null;
+            $scope.error = 'Erro ao tentar fazer o upload da foto.';            
+        });
+    };
+    
+    $scope.getFotos(1);
+});
+
+
 /*
 negocieControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function ($scope, $http) {

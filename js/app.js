@@ -56,5 +56,10 @@ negocieApp.config(function($routeProvider) {
 		.when('/listaAnuncios', {
 			templateUrl : 'pages/listaAnuncio.html',
 			controller  : 'listaAnuncioController'
+		})
+		
+		.when('/upload', {
+			templateUrl : 'upload/upload.html',
+			controller  : 'uploadController'
 		});
 });
