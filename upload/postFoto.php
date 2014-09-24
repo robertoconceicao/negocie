@@ -5,9 +5,11 @@ require_once '../ajax/db.php';
 define("DIR_FOTOS", "fotos");
 define("TAMANHO", "1000000");
 
+/*
 $data = file_get_contents("php://input");
 $postData = json_decode($data);
-	
+
+
 	if(isset($postData)){		
 		// Recupera os dados dos campos	
 		$foto = $postData->foto;
@@ -42,7 +44,8 @@ $postData = json_decode($data);
 			echo json_encode(array('msg'=>'Erro ao inserir dados.'));
 		}
 	}
-/*
+	
+*/
 	if(isset($_FILES["foto"])){		
 		// Recupera os dados dos campos	
 		$foto = $_FILES["foto"];
@@ -76,6 +79,5 @@ $postData = json_decode($data);
 		} else {
 			echo json_encode(array('msg'=>'Erro ao inserir dados.'));
 		}
-	}
-	*/
+	}	
 ?>

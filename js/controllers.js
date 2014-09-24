@@ -160,11 +160,8 @@ negocieControllers.controller('uploadController', function($scope, $http) {
 	
 	
 	$scope.submitFoto = function (cdanuncio){
-	  
-	  formData = $scope.form;
 
-
-      $http.post("upload/postFoto.php", JSON.stringify(formData))
+      $http.post("upload/postFoto.php")
         .success(function (data, status, headers, config)
         { 
           $scope.messages = 'sucesso!';
