@@ -11,6 +11,7 @@ var negocieApp = angular.module('negocieApp', [
 	]);
 
 
+
 negocieApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -27,32 +28,38 @@ negocieApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
+
 negocieApp.service('fileUpload', ['$http', function ($http) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var fd = new FormData();
-        fd.append('file', file);
-        $http.post(uploadUrl, fd, {
+        fd.append('foto', file);
+        
+        return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
-        })
-        .success(function(){
-        })
-        .error(function(){
         });
-    }
+    };
 }]);
 
-negocieApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
-    
+/*
+negocieApp.controller('myCtrl', ['$scope', 'fileUpload',function($scope, $fileUpload){
+	
     $scope.uploadFile = function(){
         var file = $scope.myFile;
+        console.log('my text ' + $scope.myText);
         console.log('file is ' + JSON.stringify(file));
-        var uploadUrl = "/upload/fotos";
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        var uploadUrl = "upload/postFoto.php";
+        $fileUpload.uploadFileToUrl(file, uploadUrl)
+        .success(function(dados){
+        	$scope.dados = dados;
+        })
+        .error(function(dados){
+        	$scope.dados = "Error";
+        });
     };
     
 }]);
-
+*/
 
 
 negocieApp.config(['flowFactoryProvider', function (flowFactoryProvider) {

@@ -1,29 +1,8 @@
-<div ng-controller = "myCtrl">
-    <input type="file" file-model="myFile"/>
-    <button ng-click="uploadFile()">upload me</button>
-</div>
-
 <div ng-controller="uploadController">
-	<h1>Upload foto</h1>
-	
-	<form ng-submit="submitFoto(1)" enctype="multipart/form-data" file-model="myFile">
-	      <input type="hidden" name="cdanuncio" class="form-control" ng-model="cdanuncio">
-		  Foto de exibição:<br />
-		  
-		  <input type="file" name="foto" ng-model="foto"/><br /><br />
-	
-	
-		  <div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-			  <button type="submit" class="btn btn-success btn-lg">Enviar</button>
-			</div>
-		  </div>
-	</form>
-	
-	<hr />
-	
-	<h1>Fotos</h1>
-	
+    <input type="file" file-model="myFile" name="foto"/>    
+    <button ng-click="uploadFile()">upload me</button>
+    <br /><hr /><br />
+
 	<div class="col-md-12">	  
 	  <ul>  
 	    <li ng-repeat="foto in fotos" class="col-md-3">				    	
@@ -31,15 +10,4 @@
 	    </li>		  
 	  </ul>
 	</div>
-	
-	<hr />
-	<p class="help-block">
-	<strong>Mensagem</strong><br />
-		{{ messages }}
-	</p>
-	<hr />
-	<p class="help-block">
-	<strong>Objeto JSon recebido</strong><br />
-		{{ fotos | json }}
-	</p>
 </div>

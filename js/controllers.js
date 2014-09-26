@@ -137,9 +137,27 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 });
 
 
-negocieControllers.controller('uploadController', function($scope, $http) {
+negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload', function($scope, $http, $fileUpload){
 	$scope.fotos = null;
 	$scope.cdanuncio = null;
+		
+	$scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' + JSON.stringify(file));
+        var uploadUrl = "upload/postFoto.php?cdanuncio=1";
+        
+        $fileUpload.uploadFileToUrl(file, uploadUrl)
+        .success(function(dados){
+        	$scope.messages = 'sucesso!';
+            $scope.error = null;
+            
+            $scope.getFotos();
+        })
+        .error(function(dados){
+        	$scope.messages = null;
+            $scope.error = 'Erro ao tentar fazer o upload da foto.';
+        });
+    };	    
 	
 	$scope.getFotos = function (cdanuncio){ 
   		var config = {
@@ -157,27 +175,13 @@ negocieControllers.controller('uploadController', function($scope, $http) {
 				$scope.message = null;				
 			});
   	};	
-	
-	
-	$scope.submitFoto = function (cdanuncio){
-
-      $http.post("upload/postFoto.php")
-        .success(function (data, status, headers, config)
-        { 
-          $scope.messages = 'sucesso!';
-          $scope.error = null;
-          
-          $scope.getFotos();
-        })
-        .error(function (data, status, headers, config)
-        {
-        	$scope.messages = null;
-            $scope.error = 'Erro ao tentar fazer o upload da foto.';            
-        });
-    };
     
     $scope.getFotos(1);
-});
+}]);
+
+
+
+
 
 
 /*

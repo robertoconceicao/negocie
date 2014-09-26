@@ -6,10 +6,15 @@ define("DIR_FOTOS", "fotos");
 define("TAMANHO", "1000000");
 
 /*
+if(isset($_FILES["file"])){
+	echo json_encode(array('success'=>true));
+} else {
+	echo json_encode(array('msg'=>'Erro not file.'));
+}
+
+
 $data = file_get_contents("php://input");
 $postData = json_decode($data);
-
-
 	if(isset($postData)){		
 		// Recupera os dados dos campos	
 		$foto = $postData->foto;
@@ -46,6 +51,11 @@ $postData = json_decode($data);
 	}
 	
 */
+
+/*
+ * {"webkitRelativePath":"","lastModifiedDate":"2014-07-22T00:18:17.000Z","name":"bg_sms.jpg","type":"image/jpeg","size":20754}
+ */
+
 	if(isset($_FILES["foto"])){		
 		// Recupera os dados dos campos	
 		$foto = $_FILES["foto"];
@@ -74,10 +84,10 @@ $postData = json_decode($data);
 		$sql = mysql_query("INSERT INTO foto(nmfoto, cdanuncio) VALUES ('$nome_imagem','1')");
 			
 		// Se os dados forem inseridos com sucesso
-		if ($result){
+		if ($sql){
 			echo json_encode(array('success'=>true));
 		} else {
 			echo json_encode(array('msg'=>'Erro ao inserir dados.'));
 		}
-	}	
+	}		
 ?>
