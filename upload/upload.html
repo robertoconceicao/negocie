@@ -1,13 +1,62 @@
 <div ng-controller="uploadController">
-    <input type="file" file-model="myFile" name="foto"/>    
-    <button ng-click="uploadFile()">upload me</button>
+	<h1>Fotos do anúncio</h1>
+	<p class="help-block">
+		Adicione fotos ao seu anúncio e ganhe muito mais visibilidade. 
+ 	</p>
+ 	
+ 	 <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div>
+        <div class="col-lg-7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success" style="position: relative; overflow: hidden; direction: ltr;">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add fotos...</span>
+                <input type="file" file-model="myFile" name="foto"                	
+                	style="height: 72px; position: absolute; right: 0px; top: 0px; opacity: 0;">
+                </input>
+            </span>
+            <!--
+            <span id="image_upload_button" class="image_upload_button" style="position: relative; overflow: hidden; direction: ltr;">adicionar imagens
+				<input multiple="multiple" accept="image/*" type="file" name="file" style="height: 72px; position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;">
+			</span>
+            -->
+            
+            <button ng-click="uploadFile()" class="btn btn-primary start">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Enviar</span>                
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Cancelar envio</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>Remover</span>
+            </button>
+            <input type="checkbox" class="toggle">
+            <!-- The global file processing state -->
+            <span class="fileupload-process"></span>
+        </div>
+    </div>
+	
     <br /><hr /><br />
 
+	<!-- 
 	<div class="col-md-12">	  
 	  <ul>  
 	    <li ng-repeat="foto in fotos" class="col-md-3">				    	
-	    	<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibi��o' height='100' width='100'/>
+	    	<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='100' width='100'/>
 	    </li>		  
 	  </ul>
 	</div>
+	
+	class="img-thumbnail"
+	 -->
+	
+	<div class="col-lg-10">	  
+	  <div class="col-lg-2" ng-repeat="foto in fotos">	
+		  <img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='100' width='100' class="img-circle"/>
+	  </div>  
+	</div>
+	
 </div>

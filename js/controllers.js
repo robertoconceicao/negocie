@@ -136,7 +136,7 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 	$scope.listaAnuncio(1);
 });
 
-
+// esta sendo utilizado o service fileUpload criado no app.js
 negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload', function($scope, $http, $fileUpload){
 	$scope.fotos = null;
 	$scope.cdanuncio = null;
@@ -180,11 +180,10 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
 }]);
 
 
-
-
-
-
 /*
+ * 
+ *Exemplos de controles 
+ *
 negocieControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function ($scope, $http) {
     $http.get('phones/phones.json').success(function(data) {
