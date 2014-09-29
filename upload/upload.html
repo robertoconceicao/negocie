@@ -25,17 +25,6 @@
                 <i class="glyphicon glyphicon-upload"></i>
                 <span>Enviar</span>                
             </button>
-            <button type="reset" class="btn btn-warning cancel">
-                <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancelar envio</span>
-            </button>
-            <button type="button" class="btn btn-danger delete">
-                <i class="glyphicon glyphicon-trash"></i>
-                <span>Remover</span>
-            </button>
-            <input type="checkbox" class="toggle">
-            <!-- The global file processing state -->
-            <span class="fileupload-process"></span>
         </div>
     </div>
 	
@@ -50,13 +39,15 @@
 	  </ul>
 	</div>
 	
-	class="img-thumbnail"
+	class="img-circle"
 	 -->
 	
-	<div class="col-lg-10">	  
-	  <div class="col-lg-2" ng-repeat="foto in fotos">	
-		  <img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='100' width='100' class="img-circle"/>
+	<div class="col-lg-10">
+	  <div class="col-lg-3" ng-repeat="foto in fotos">
+		  <img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='150' width='150' class="img-thumbnail"/>		  
+		  <button type="button" class="close" ng-click="removeFoto(cdanuncio, foto.nmfoto)">
+		  	<span aria-hidden="true">×</span>		  	
+		  </button>
 	  </div>  
-	</div>
-	
+	</div>	
 </div>

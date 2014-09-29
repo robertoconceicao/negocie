@@ -174,7 +174,24 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
 				$scope.error = "Erro na ao carregar as fotos";
 				$scope.message = null;				
 			});
-  	};	
+  	};
+  	
+  	$scope.removeFoto = function (cdanuncio, nmfoto){
+  		var config = {
+	        params: {
+	          cdanuncio: cdanuncio,
+	          nmfoto: nmfoto
+	        }
+	    };
+  		$http.get("upload/removeFoto.php", config)
+  			.success(function(data, status, headers, config){
+  				$scope.cdanuncio = data.cdanuncio;
+  				$scope.getFotos(data.cdanuncio);
+	       }).error(function (data, status, headers, config){
+				alert("Erro ao tentar remover a foto");
+				$scope.getFotos($scope.cdanuncio);				
+			});
+  	};
     
     $scope.getFotos(1);
 }]);
