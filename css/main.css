@@ -57,3 +57,10 @@
     overflow: hidden;
     display: block;
 }
+
+.borderMain {
+    padding: 15px;
+    border: 2px #f1f1f1 solid;
+    border-radius: 5px;
+    line-height: 34px;
+}

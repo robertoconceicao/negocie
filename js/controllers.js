@@ -42,7 +42,7 @@ negocieControllers.controller('anuncioController', function($scope, $http, promi
       $http.post("ajax/postAnuncio.php", null, config)
         .success(function (data, status, headers, config)
         { 
-          $scope.messages = 'Anúncio cadastrado com sucesso!';
+          $scope.messages = null;//'Anúncio cadastrado com sucesso!';
           $scope.error = null;
         })
         .error(function (data, status, headers, config)
@@ -147,9 +147,7 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
         var uploadUrl = "upload/postFoto.php?cdanuncio=1";
         
         $fileUpload.uploadFileToUrl(file, uploadUrl)
-        .success(function(dados){
-        	$scope.messages = 'sucesso!';
-            $scope.error = null;
+        .success(function(dados){        	
             $scope.myFile = null;
             $scope.getFotos();
         })
@@ -189,7 +187,7 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
   				$scope.cdanuncio = data.cdanuncio;
   				$scope.getFotos(data.cdanuncio);
 	       }).error(function (data, status, headers, config){
-				alert("Erro ao tentar remover a foto");
+	    	   $scope.error = "Erro ao tentar remover a foto";
 				$scope.getFotos($scope.cdanuncio);				
 			});
   	};
