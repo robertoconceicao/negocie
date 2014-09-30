@@ -150,11 +150,12 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
         .success(function(dados){
         	$scope.messages = 'sucesso!';
             $scope.error = null;
-            
+            $scope.myFile = null;
             $scope.getFotos();
         })
         .error(function(dados){
         	$scope.messages = null;
+        	$scope.myFile = null;
             $scope.error = 'Erro ao tentar fazer o upload da foto.';
         });
     };	    
@@ -194,6 +195,10 @@ negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload
   	};
     
     $scope.getFotos(1);
+    
+    $scope.teste = function (){
+    	alert("Teste");
+    };
 }]);
 
 

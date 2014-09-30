@@ -4,50 +4,75 @@
 		Adicione fotos ao seu anúncio e ganhe muito mais visibilidade. 
  	</p>
  	
- 	 <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    <div>
-        <div class="col-lg-7">
-            <!-- The fileinput-button span is used to style the file input field as button -->
+	<!--	
+
+ 	 Primeira tentativa funciona mas aparencia nao é boa
+	<div class="form-group">
+    	<label class="col-sm-2 control-label">Fotos produto:</label>
+        <div class="col-sm-10">
             <span class="btn btn-success" style="position: relative; overflow: hidden; direction: ltr;">
                 <i class="glyphicon glyphicon-plus"></i>
                 <span>Add fotos...</span>
                 <input type="file" file-model="myFile" name="foto"                	
                 	style="height: 72px; position: absolute; right: 0px; top: 0px; opacity: 0;">
                 </input>
-            </span>
-            <!--
-            <span id="image_upload_button" class="image_upload_button" style="position: relative; overflow: hidden; direction: ltr;">adicionar imagens
-				<input multiple="multiple" accept="image/*" type="file" name="file" style="height: 72px; position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;">
-			</span>
-            -->
+            </span>            
             
             <button ng-click="uploadFile()" class="btn btn-primary start">
                 <i class="glyphicon glyphicon-upload"></i>
                 <span>Enviar</span>                
             </button>
-        </div>
-    </div>
-	
-    <br /><hr /><br />
-
-	<!-- 
-	<div class="col-md-12">	  
-	  <ul>  
-	    <li ng-repeat="foto in fotos" class="col-md-3">				    	
-	    	<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='100' width='100'/>
-	    </li>		  
-	  </ul>
+		
+	    	<br /><hr /><br />
+		    <div class="col-sm-3" ng-repeat="foto in fotos">
+			  <img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='150' width='150' class="img-thumbnail"/>		  
+			  <button type="button" class="close" ng-click="removeFoto(cdanuncio, foto.nmfoto)">
+			  	<span aria-hidden="true">×</span>		  	
+			  </button>
+		    </div>  
+	    </div>
 	</div>
-	
-	class="img-circle"
 	 -->
 	
-	<div class="col-lg-10">
-	  <div class="col-lg-3" ng-repeat="foto in fotos">
-		  <img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição' height='150' width='150' class="img-thumbnail"/>		  
-		  <button type="button" class="close" ng-click="removeFoto(cdanuncio, foto.nmfoto)">
-		  	<span aria-hidden="true">×</span>		  	
-		  </button>
-	  </div>  
-	</div>	
+	
+	<!-- TESTE DE TEMPLATE DE IMAGEM EXEMPLO FLOWJS -->
+	<div class="form-group">	  
+	  	<label class="col-sm-2 control-label">Fotos produto:</label>
+	  			  
+		<div class="col-sm-10">
+		  <div>
+			  <div class="drop">
+				<span class="btn btn-default" style="position: relative; overflow: hidden; direction: ltr;">
+	               <i class="glyphicon glyphicon-plus"></i>
+	               <span>Add fotos...</span>
+	               <input type="file" file-model="myFile" name="foto" accept="image/*"                	
+	               		style="height: 72px; position: absolute; right: 0px; top: 0px; opacity: 0;">
+	               </input>
+	           </span>
+	           <button ng-click="uploadFile()" class="btn btn-primary start">
+	                <i class="glyphicon glyphicon-upload"></i>
+	                <span>Enviar</span>                
+	            </button>
+	            
+	            <span>
+	            	{{myFile.name}}
+	            </span>
+			  </div>
+			<br />
+			<!-- As imagens aparecerao aqui -->				
+			<div ng-repeat="foto in fotos" class="gallery-box">
+			  <!-- <span class="title ng-binding">{{foto.nmfoto}}</span>  -->
+			  <div class="thumbnail" >
+				<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição'/>
+			  </div>			  
+			  <div class="btn-group">
+				<a class="btn btn-xs btn-danger" ng-click="removeFoto(cdanuncio, foto.nmfoto)">
+				  Remover
+				</a>
+			  </div>
+			</div><!-- end ngRepeat: foto in fotos -->
+			<div class="clear"></div>
+		 </div>		
+		</div>
+    </div>	
 </div>

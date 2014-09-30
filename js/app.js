@@ -4,8 +4,7 @@
 // create the module and name it negocieApp
 var negocieApp = angular.module('negocieApp', [
 	'ngRoute',
-	'negocieControllers',
-	'flow',
+	'negocieControllers',	
 	'Filters',
 	'ajoslin.promise-tracker'	
 	]);
@@ -22,6 +21,7 @@ negocieApp.directive('fileModel', ['$parse', function ($parse) {
             element.bind('change', function(){
                 scope.$apply(function(){
                     modelSetter(scope, element[0].files[0]);
+                    //scope.uploadFile();
                 });
             });
         }
@@ -41,42 +41,6 @@ negocieApp.service('fileUpload', ['$http', function ($http) {
     };
 }]);
 
-/*
-negocieApp.controller('myCtrl', ['$scope', 'fileUpload',function($scope, $fileUpload){
-	
-    $scope.uploadFile = function(){
-        var file = $scope.myFile;
-        console.log('my text ' + $scope.myText);
-        console.log('file is ' + JSON.stringify(file));
-        var uploadUrl = "upload/postFoto.php";
-        $fileUpload.uploadFileToUrl(file, uploadUrl)
-        .success(function(dados){
-        	$scope.dados = dados;
-        })
-        .error(function(dados){
-        	$scope.dados = "Error";
-        });
-    };
-    
-}]);
-*/
-
-
-negocieApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
-    flowFactoryProvider.defaults = {
-      target: 'upload.php',
-      permanentErrors: [500, 501],
-	  
-      maxChunkRetries: 1,
-      chunkRetryInterval: 5000,
-      simultaneousUploads: 1
-    };
-    flowFactoryProvider.on('catchAll', function (event) {
-      console.log('catchAll', arguments);
-    });
-    // Can be used with different implementations of Flow.js
-    flowFactoryProvider.factory = fustyFlowFactory;
-  }]);
   
 // configure our routes
 negocieApp.config(function($routeProvider) {
