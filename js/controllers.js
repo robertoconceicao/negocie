@@ -16,8 +16,13 @@ negocieControllers.controller('contactController', function($scope) {
 	$scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-negocieControllers.controller('anuncioController', function($scope, $http, promiseTracker, $timeout) {
+negocieControllers.controller('anuncioController', ['$scope', '$http','fileUpload', 'promiseTracker', '$timeout', function($scope, $http, $fileUpload, $promiseTracker, $timeout) {
 	$scope.message = 'Cadastro de anúncio';
+	$scope.anuncio = {};
+	$scope.fotos = [];
+	$scope.cdanuncio = null;
+	$scope.hashcode = null;
+	$scope.status = "I";
 	
   	function getCategorias(){  
   		$http.get("ajax/getCategorias.php").success(function(data){
@@ -27,37 +32,110 @@ negocieControllers.controller('anuncioController', function($scope, $http, promi
 	
 	getCategorias();
 	
-	$scope.anuncio = {};
 	$scope.submitAnuncio = function (anuncio, resultVarName){
 	  // Default values for the request.
-      $scope.progress = promiseTracker('progress');
+      $scope.progress = $promiseTracker('progress');
       
       var config = {
         params: {
-          anuncio: anuncio
+          anuncio: anuncio,
+          fotos: $scope.fotos
         },
         tracker : 'progress'
       };
 
-      $http.post("ajax/postAnuncio.php", null, config)
+      $http.post("ajax/postAnuncio.php", null, config)      	
         .success(function (data, status, headers, config)
-        { 
+        { console.log('Config: '+ config);
           $scope.messages = null;//'Anúncio cadastrado com sucesso!';
           $scope.error = null;
+          console.log(data);
         })
         .error(function (data, status, headers, config)
         {
         	$scope.messages = null;
             $scope.error = 'Erro ao tentar cadastrar o anúncio.';
+            console.log('Erro: '+data);
         });
     };
+    
+ // esta sendo utilizado o service fileUpload criado no app.js
+//    negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload', function($scope, $http, $fileUpload){
+		
+	$scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' + JSON.stringify(file));
+        var uploadUrl = "upload/postFoto.php?cdanuncio="+$scope.cdanuncio+"&status="+$scope.status;
+        
+        $fileUpload.uploadFileToUrl(file, uploadUrl)
+        .success(function(result){
+        	console.log(result);
+            $scope.myFile = null;
+            if(result.nmfoto != null){
+            	$scope.fotos.push(result.nmfoto);            	
+            }
+            //$scope.getFotos($scope.cdanuncio, $scope.status);
+        })
+        .error(function(result){
+        	$scope.messages = null;
+        	$scope.myFile = null;
+            $scope.error = 'Erro ao tentar fazer o upload da foto.';
+            console.log('Erro: '+result);
+        });
+    };	    
+	
+	$scope.getFotos = function (cdanuncio, status){ 
+  		var config = {
+	        params: {
+	          cdanuncio: cdanuncio,
+	          status: status
+	        }
+	    };
+  		
+  		$http.get("upload/getFotos.php", config)
+  			.success(function(data, status, headers, config){
+	        	$scope.fotos = data.fotos;
+	        	//$scope.cdanuncio = data.cdanuncio;	        	
+	        	//$scope.hashcode = data.hashcode;
+	        	//$scope.status = data.status;	        	
+	       }).error(function (data, status, headers, config){
+				$scope.error = "Erro na ao carregar as fotos";
+				$scope.message = null;				
+			});
+  	};
+  	
+  	// Remove uma foto do servidor pelo nmfoto se o status for igual a I entao 
+  	// remove do dir_tmp senao do dir_fotos e db
+  	$scope.removeFoto = function (cdanuncio, status, nmfoto, index){
+  		var config = {
+	        params: {
+	          cdanuncio: cdanuncio,
+	          status: status,
+	          nmfoto: nmfoto
+	        }
+	    };
+  		$http.get("upload/removeFoto.php", config)
+  			.success(function(data, status, headers, config){
+  				$scope.fotos.splice(index,1);
+  				//data.nmfoto;
+  				//$scope.getFotos($scope.cdanuncio, $scope.status);
+	       }).error(function (data, status, headers, config){
+	    	   $scope.error = data.msg;
+	    	   //$scope.getFotos($scope.cdanuncio, $scope.status);				
+		   });
+  	};
+        
+      	//$scope.getFotos($scope.cdanuncio, $scope.status);
+ //   }]);
+    
+    
     
  // Hide the status message which was set above after n seconds.
     $timeout(function() {
       $scope.messages = null;
       $scope.error = null;
     }, 5000);
-});
+}]);
 
 negocieControllers.controller('estadosController', function($scope, $http) {	 
   	function getEstados(){
@@ -135,80 +213,6 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 	// a primeira vez q abre a janela ja chama
 	$scope.listaAnuncio(1);
 });
-
-
-// esta sendo utilizado o service fileUpload criado no app.js
-negocieControllers.controller('uploadController', ['$scope', '$http','fileUpload', function($scope, $http, $fileUpload){
-	// valores default
-	$scope.fotos = [];
-	$scope.cdanuncio = null;
-	$scope.hashcode = null;
-	$scope.status = "I";
-		
-	$scope.uploadFile = function(){
-        var file = $scope.myFile;
-        console.log('file is ' + JSON.stringify(file));
-        var uploadUrl = "upload/postFoto.php?cdanuncio="+$scope.cdanuncio+"&status="+$scope.status;
-        
-        $fileUpload.uploadFileToUrl(file, uploadUrl)
-        .success(function(result){        	
-            $scope.myFile = null;
-            if(result.nmfoto != null){
-            	$scope.fotos.push(result.nmfoto);            	
-            }
-            //$scope.getFotos($scope.cdanuncio, $scope.status);
-        })
-        .error(function(result){
-        	$scope.messages = null;
-        	$scope.myFile = null;
-            $scope.error = 'Erro ao tentar fazer o upload da foto.';
-        });
-    };	    
-	
-	$scope.getFotos = function (cdanuncio, status){ 
-  		var config = {
-	        params: {
-	          cdanuncio: cdanuncio,
-	          status: status
-	        }
-	    };
-  		
-  		$http.get("upload/getFotos.php", config)
-  			.success(function(data, status, headers, config){
-	        	$scope.fotos = data.fotos;
-	        	//$scope.cdanuncio = data.cdanuncio;	        	
-	        	//$scope.hashcode = data.hashcode;
-	        	//$scope.status = data.status;	        	
-	       }).error(function (data, status, headers, config){
-				$scope.error = "Erro na ao carregar as fotos";
-				$scope.message = null;				
-			});
-  	};
-  	
-  	// Remove uma foto do servidor pelo nmfoto se o status for igual a I entao 
-  	// remove do dir_tmp senao do dir_fotos e db
-  	$scope.removeFoto = function (cdanuncio, status, nmfoto, index){
-  		var config = {
-	        params: {
-	          cdanuncio: cdanuncio,
-	          status: status,
-	          nmfoto: nmfoto
-	        }
-	    };
-  		$http.get("upload/removeFoto.php", config)
-  			.success(function(data, status, headers, config){
-  				$scope.fotos.splice(index,1);
-  				//data.nmfoto;
-  				//$scope.getFotos($scope.cdanuncio, $scope.status);
-	       }).error(function (data, status, headers, config){
-	    	   $scope.error = data.msg;
-	    	   //$scope.getFotos($scope.cdanuncio, $scope.status);				
-		   });
-  	};
-    
-  	//$scope.getFotos($scope.cdanuncio, $scope.status);
-}]);
-
 
 /*
  * 

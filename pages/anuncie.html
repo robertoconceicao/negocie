@@ -4,7 +4,7 @@
 		Preencha o formulário abaixo e clique em "Publicar grátis".<br /> 
  	   	Os campos marcados com asterisco (*) são obrigatórios 
  	</p>
-	<form class="form-horizontal" ng-submit="submitAnuncio(anuncio, 'message')">
+	<form class="form-horizontal">
 		<div class="form-group">				
   			<div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
   			<div id="error" class="alert alert-danger" data-ng-show="error" data-ng-bind="error"></div>
@@ -12,6 +12,7 @@
   		
 	  <div class="form-group">
 	  	<input type="hidden" name="id" class="form-control" ng-model="anuncio.id">
+	  	
 	  	
 		<label for="itCategoria" class="col-sm-2 control-label">Categoria:</label>
 		<div class="col-sm-10">
@@ -48,52 +49,52 @@
 	  <hr />
 	  
       <!-- Upload fotos -->            
-	  <div ng-controller="uploadController">	  	
-			<h1>Fotos do anúncio</h1>
-			<p class="help-block">
-				Adicione fotos ao seu anúncio e ganhe muito mais visibilidade. 
-		 	</p>
-		 	
-			<div class="form-group">	  
-			  	<label class="col-sm-2 control-label">Fotos produto:</label>
-			  			  
-				<div class="col-sm-10">
-				  <div>
-					  <div class="drop">
-						<span class="btn btn-default" style="position: relative; overflow: hidden; direction: ltr;">
-			               <i class="glyphicon glyphicon-plus"></i>
-			               <span>Add fotos...</span>
-			               <input type="file" file-model="myFile" name="foto" accept="image/*"                	
-			               		style="height: 72px; position: absolute; right: 0px; top: 0px; opacity: 0;">
-			               </input>
-			           </span>
-			           <button ng-click="uploadFile()" class="btn btn-primary start">
-			                <i class="glyphicon glyphicon-upload"></i>
-			                <span>Enviar</span>                
-			            </button>
-			            
-			            <span>
-			            	{{myFile.name}}
-			            </span>
-					  </div>
-					<br />
-					<!-- As imagens aparecerao aqui -->				
-					<div ng-repeat="foto in fotos" class="gallery-box">
-					  <!-- <span class="title ng-binding">{{foto.nmfoto}}</span>  -->
-					  <div class="thumbnail" >
-						<img src="upload/tmp/{{foto}}" alt='Foto de exibição'/>
-					  </div>			  
-					  <div class="btn-group">
-						<a class="btn btn-xs btn-danger" ng-click="removeFoto(cdanuncio, status, foto, $index)">
-						  Remover
-						</a>
-					  </div>
-					</div><!-- end ngRepeat: foto in fotos -->
-					<div class="clear"></div>
-				 </div>		
-				</div>
-		    </div>
-	  </div>
+		<h1>Fotos do anúncio</h1>
+		<p class="help-block">
+			Adicione fotos ao seu anúncio e ganhe muito mais visibilidade.
+			{{fotos}} 
+	 	</p>
+	 	
+		<div class="form-group">	  
+		  	<label class="col-sm-2 control-label">Fotos produto:</label>
+		  			  
+			<div class="col-sm-10">
+			  <div>
+				  <div class="drop">
+					<span class="btn btn-default" style="position: relative; overflow: hidden; direction: ltr;">
+		               <i class="glyphicon glyphicon-plus"></i>
+		               <span>Add fotos...</span>
+		               <input type="file" file-model="myFile" name="foto" accept="image/*"                	
+		               		style="height: 72px; position: absolute; right: 0px; top: 0px; opacity: 0;">
+		               </input>
+		           </span>
+		           <button ng-click="uploadFile()" class="btn btn-primary start">
+		                <i class="glyphicon glyphicon-upload"></i>
+		                <span>Enviar</span>                
+		            </button>
+		            
+		            <span>
+		            	{{myFile.name}}
+		            </span>
+				  </div>
+				<br />
+								
+				<!-- As imagens aparecerao aqui -->
+				<div ng-repeat="foto in fotos" class="gallery-box">
+				  <!-- <span class="title ng-binding">{{foto.nmfoto}}</span>  -->
+				  <div class="thumbnail" >
+					<img src="upload/tmp/{{foto}}" alt='Foto de exibição'/>
+				  </div>			  
+				  <div class="btn-group">
+					<a class="btn btn-xs btn-danger" ng-click="removeFoto(cdanuncio, status, foto, $index)">
+					  Remover
+					</a>
+				  </div>
+				</div><!-- end ngRepeat: foto in fotos -->
+				<div class="clear"></div>
+			 </div>		
+			</div>
+	    </div>	  
 	  <!-- Fim upload fotos -->
 	  
 	  <hr />
@@ -153,7 +154,10 @@
 	  <hr />
 	  <div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-		  <button type="submit" class="btn btn-success btn-lg">Publicar grátis</button>
+		  <button type="submit" class="btn btn-success btn-lg"
+		  		ng-click="submitAnuncio(anuncio, 'message')">
+            	<span>Publicar grátis</span>               
+		  </button>		  
 		</div>
 	  </div>
 	</form>

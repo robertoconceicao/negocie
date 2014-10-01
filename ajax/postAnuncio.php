@@ -13,13 +13,23 @@
 	*/
 	
 	require_once 'db.php'; // The mysql database connection script
+	require_once 'defines.php';
 	
-	if (isset($_GET["anuncio"]))
+	if (isset($_GET["anuncio"]) && isset($_GET["fotos"]))
 	{
 	    // AJAX form submission
 	    $anuncio = json_decode($_GET["anuncio"], true);		
+	    $fotos = json_decode($_GET["fotos"], true);
 	    
-	    $hashcode = $anuncio['titulo']."HASHCODE_DO_BOB".time();
+	    echo "Anuncio: $anuncio  Fotos: $fotos";
+	}
+	else
+	{
+	   echo "INVALID REQUEST DATA";
+	}
+	
+	function insertAnuncio($anuncio) {
+		$hashcode = $anuncio['titulo']."HASHCODE_DO_BOB".time();
 	    $hashcode = sha1($hashcode);
 	    
 		$sql = " insert into anuncio(cdcategoria,cdcidade,cdestado,cdpais,cdpasta,".
@@ -29,7 +39,11 @@
 			   " '{$anuncio['titulo']}', '{$anuncio['descricao']}','{$anuncio['preco']}', '{$anuncio['nome']}',".
 			   " '{$anuncio['email']}','{$anuncio['telefone']}','TODO','$hashcode')";
 		
-		$result = @mysql_query($sql);
+		$result = mysql_query($sql);
+		
+		$cdanuncio = mysql_insert_id();
+		
+		//insertFotos($cdanuncio);
 		
 		if ($result){
 			echo json_encode(array('success'=>true));
@@ -37,13 +51,8 @@
 			echo json_encode(array('msg'=>'Erro ao inserir dados.'));
 		} 
 	}
-	else
-	{
-	   echo "INVALID REQUEST DATA";
-	}
-
 	
-	function insertFotos(){
+	function insertFotos($cdanuncio){
 		// Trocar pela lista de nomes das fotos q vai vir pelo angular
 		if(isset($_FILES["foto"])){		
 			// Recupera os dados dos campos	
