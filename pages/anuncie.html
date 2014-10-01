@@ -81,10 +81,10 @@
 					<div ng-repeat="foto in fotos" class="gallery-box">
 					  <!-- <span class="title ng-binding">{{foto.nmfoto}}</span>  -->
 					  <div class="thumbnail" >
-						<img src="upload/fotos/{{foto.nmfoto}}" alt='Foto de exibição'/>
+						<img src="upload/tmp/{{foto}}" alt='Foto de exibição'/>
 					  </div>			  
 					  <div class="btn-group">
-						<a class="btn btn-xs btn-danger" ng-click="removeFoto(cdanuncio, foto.nmfoto)">
+						<a class="btn btn-xs btn-danger" ng-click="removeFoto(cdanuncio, status, foto, $index)">
 						  Remover
 						</a>
 					  </div>
