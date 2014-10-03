@@ -21,7 +21,8 @@
 	    $anuncio = json_decode($_GET["anuncio"], true);		
 	    $fotos = json_decode($_GET["fotos"], true);
 	    
-	    echo "Anuncio: $anuncio  Fotos: $fotos";
+	    // Funcionou antes de passar o array eu tive q fazer um JSON.stringify(na var fotos) e funfou perfeito
+	    echo "Anuncio: $anuncio  Fotos: $fotos  size: ".sizeof($fotos);
 	}
 	else
 	{

@@ -22,7 +22,8 @@ negocieControllers.controller('anuncioController', ['$scope', '$http','fileUploa
 	$scope.fotos = [];
 	$scope.cdanuncio = null;
 	$scope.hashcode = null;
-	$scope.status = "I";
+	$scope.status = "I";	
+	$scope.debug = null;
 	
   	function getCategorias(){  
   		$http.get("ajax/getCategorias.php").success(function(data){
@@ -39,15 +40,15 @@ negocieControllers.controller('anuncioController', ['$scope', '$http','fileUploa
       var config = {
         params: {
           anuncio: anuncio,
-          fotos: $scope.fotos
+          fotos: JSON.stringify($scope.fotos)
         },
         tracker : 'progress'
       };
 
       $http.post("ajax/postAnuncio.php", null, config)      	
         .success(function (data, status, headers, config)
-        { console.log('Config: '+ config);
-          $scope.messages = null;//'Anúncio cadastrado com sucesso!';
+        { console.log('Config: '+JSON.stringify(config));
+          $scope.messages = config;//null;//'Anúncio cadastrado com sucesso!';
           $scope.error = null;
           console.log(data);
         })
