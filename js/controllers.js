@@ -215,6 +215,35 @@ negocieControllers.controller('listaAnuncioController', function($scope, $http) 
 	$scope.listaAnuncio(1);
 });
 
+
+negocieControllers.controller('viewAnuncioController', function($scope, $http) {
+	$scope.fotos = [];
+	
+	$scope.getFotos = function (){ 
+  		var config = {
+	        params: {	    
+	        }
+	    };
+  		
+  		$http.get("upload/getFotos.php", config)
+  			.success(function(data, status, headers, config){
+	        	$scope.fotos = data.fotos;	        		        	
+	       }).error(function (data, status, headers, config){
+				$scope.error = "Erro na ao carregar as fotos";
+				$scope.message = null;				
+			});
+  	};
+  	
+  	$scope.getFotos();
+  	
+  	angular.element(document).ready(function () {
+  	   var options = { 
+     		  $AutoPlay: true 
+       };
+       var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+    });
+});
+
 /*
  * 
  *Exemplos de controles 

@@ -68,6 +68,11 @@ negocieApp.config(function($routeProvider) {
 			templateUrl : 'pages/anuncie.html',
 			controller  : 'anuncioController'
 		})
+				
+		.when('/viewAnuncio', {
+			templateUrl : 'pages/viewAnuncio.html',
+			controller  : 'viewAnuncioController'
+		})
 		
 		.when('/listaAnuncios', {
 			templateUrl : 'pages/listaAnuncio.html',
