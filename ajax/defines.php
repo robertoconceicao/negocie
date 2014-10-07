@@ -1,6 +1,6 @@
 <?php
-define("DIR_FOTOS", "fotos");
-define("DIR_TMP", "tmp");
+define("DIR_FOTOS", "../fotos");
+define("DIR_TMP", "../tmp");
 define("FOTO_SIZE", "1000000");
 
 // Status da operacao

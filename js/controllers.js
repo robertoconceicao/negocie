@@ -17,7 +17,7 @@ negocieControllers.controller('contactController', function($scope) {
 });
 
 negocieControllers.controller('anuncioController', ['$scope', '$http','fileUpload', 'promiseTracker', '$timeout', function($scope, $http, $fileUpload, $promiseTracker, $timeout) {
-	$scope.message = 'Cadastro de anúncio';
+	$scope.message = 'Cadastro de anï¿½ncio';
 	$scope.anuncio = {};
 	$scope.fotos = [];
 	$scope.cdanuncio = null;
@@ -47,15 +47,14 @@ negocieControllers.controller('anuncioController', ['$scope', '$http','fileUploa
 
       $http.post("ajax/postAnuncio.php", null, config)      	
         .success(function (data, status, headers, config)
-        { console.log('Config: '+JSON.stringify(config));
-          $scope.messages = config;//null;//'Anúncio cadastrado com sucesso!';
+        { $scope.messages = 'AnÃºncio cadastrado com sucesso!';
           $scope.error = null;
           console.log(data);
         })
         .error(function (data, status, headers, config)
         {
-        	$scope.messages = null;
-            $scope.error = 'Erro ao tentar cadastrar o anúncio.';
+            $scope.messages = null;
+            $scope.error = 'Erro ao tentar cadastrar o anï¿½ncio.';
             console.log('Erro: '+data);
         });
     };
