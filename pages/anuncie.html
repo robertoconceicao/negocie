@@ -4,11 +4,11 @@
 		Preencha o formulário abaixo e clique em "Publicar grátis".<br /> 
  	   	Os campos marcados com asterisco (*) são obrigatórios 
  	</p>
-	<form class="form-horizontal">
-		<div class="form-group">				
-  			<div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
-  			<div id="error" class="alert alert-danger" data-ng-show="error" data-ng-bind="error"></div>
-  		</div>
+	<form name="anuncio_form" class="form-horizontal">
+            <div class="form-group">				
+                    <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
+                    <div id="error" class="alert alert-danger" data-ng-show="error" data-ng-bind="error"></div>
+            </div>
   		
 	  <div class="form-group">
 	  	<input type="hidden" name="id" class="form-control" ng-model="anuncio.id">
@@ -16,36 +16,48 @@
 	  	
 		<label for="itCategoria" class="col-sm-2 control-label">Categoria*:</label>
 		<div class="col-sm-10">
-			<select id="itCategoria" class="form-control" ng-model="anuncio.categoria" ng-options="categoria.nmcategoria for categoria in categorias" required>
+			<select name="categoria" id="itCategoria" class="form-control" ng-model="anuncio.categoria" ng-options="categoria.nmcategoria for categoria in categorias" ng-required="!anuncio.categoria">
 			  <option value="">-- selecione uma categoria --</option>
 			</select>            
 		</div>
+                <span ng-show='anuncio_form.categoria.$error.required'>
+                    O campo categoria é obrigatório.
+                </span>
 	  </div>
 	  
 	  <div class="form-group">
 		<label for="itTitulo" class="col-sm-2 control-label">Título do anúncio*:</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="itTitulo" placeholder="Título do anúncio" ng-model="anuncio.titulo" required >
+		  <input type="text" name="titulo" class="form-control" id="itTitulo" placeholder="Título do anúncio" ng-model="anuncio.titulo" ng-required="!anuncio.titulo">
 		</div>
+                <span ng-show='anuncio_form.titulo.$error.titulo'>
+                    O campo título é obrigatório.
+                </span>
 	  </div>      
       
       <div class="form-group">
 		<label for="itDescricao" class="col-sm-2 control-label">Descrição*:</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="10" id="itDescricao" placeholder="Vendo uma TV de 32 polegadas ... " ng-model="anuncio.descricao" required >
+			<textarea name="descricao" class="form-control" rows="10" id="itDescricao" placeholder="Vendo uma TV de 32 polegadas ... " ng-model="anuncio.descricao" ng-required="!anuncio.descricao" >
 			</textarea>		
 		</div>
-	  </div>
+                <span ng-show='anuncio_form.descricao.$error.descricao'>
+                    O campo descrição é obrigatório.
+                </span>
+       </div>
       
       <div class="form-group">      
 		<label for="itPreco" class="col-sm-2 control-label">Preço à negociar*:</label>
 		<div class="col-sm-10">
 			<div class="input-group">
 				<span class="input-group-addon">R$</span>
-		  		<input type="text" class="form-control" id="itPreco" ng-model="anuncio.preco" required 
-		  			value="anuncio.preco | currency">
+		  		<input type="text" class="form-control" id="itPreco" ng-model="anuncio.preco" 
+		  			value="anuncio.preco | currency" ng-required="!anuncio.preco">
 		  	</div>
 		</div>
+                <span ng-show='anuncio_form.preco.$error.preco'>
+                    O campo preço é obrigatório.
+                </span>
 	  </div>
       
 	  <hr />
@@ -106,8 +118,11 @@
 	  <div class="form-group">
 		<label for="itNomeContato" class="col-sm-2 control-label">Nome de contato*:</label>
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" id="itNomeContato" ng-model="anuncio.nome" required >
+		  <input name="nome" type="text" class="form-control" id="itNomeContato" ng-model="anuncio.nome" ng-required="!anuncio.nome">
 		</div>
+                <span ng-show='anuncio_form.nome.$error.nome'>
+                    O campo nome é obrigatório.
+                </span>
 	  </div>
 	
 	  <div class="form-group">
@@ -115,9 +130,12 @@
 		<div class="col-sm-10">
 		  <div class="input-group">
 			  <span class="input-group-addon">@</span>
-			  <input type="text" class="form-control" id="itEmail" placeholder="Ex.: fulano@gmail.com" ng-model="anuncio.email" required >
+			  <input type="email" class="form-control" id="itEmail" placeholder="Ex.: fulano@gmail.com" ng-model="anuncio.email" ng-required="!anuncio.email">
 		  </div>
 		</div>
+                <span ng-show='anuncio_form.email.$error.email'>
+                    O campo e-mail é obrigatório.
+                </span>
 	  </div>
 	  
 	  <div class="form-group">
@@ -136,20 +154,27 @@
 			<label for="itEstado" class="col-sm-2 control-label">Estado*:</label>	  	
 			<div class="col-sm-10">
 				<select id="itEstado" class="form-control" ng-model="anuncio.estado"
-					ng-options="estado.nome for estado in estados" required >
+					ng-options="estado.nome for estado in estados" ng-required="!anuncio.estado"
+                                        name="estado">
 				  <option value="">-- selecione o estado --</option>
 				</select>
 			</div>
 		  </div>
-		  
+		  <span ng-show='anuncio_form.estado.$error.estado'>
+                    O campo estado é obrigatório.
+                  </span>
 		  <div class="form-group">
 			<label for="itCidade" class="col-sm-2 control-label">Cidade*:</label>
 			<div class="col-sm-10">
 			   <select id="itCidade" class="form-control" ng-model="anuncio.cidade" 
-			   		ng-options="cidade.nome for cidade in cidades | cidades: anuncio.estado" required >
+			   		ng-options="cidade.nome for cidade in cidades | cidades: anuncio.estado" ng-required="!anuncio.cidade"
+                                        name="cidade">
 				  <option value="">-- selecione a cidade --</option>
 			   </select>
 			</div>
+                        <span ng-show='anuncio_form.cidade.$error.cidade'>
+                            O campo cidade é obrigatório.
+                        </span>
 		  </div>
 		  
 	  </div>
@@ -157,7 +182,8 @@
 	  <div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 		  <button type="submit" class="btn btn-success btn-lg"
-		  		ng-click="submitAnuncio(anuncio, 'message')">
+		  		ng-click="submitAnuncio(anuncio, 'message')"
+                                >
             	<span>Publicar grátis</span>               
 		  </button>		  
 		</div>
