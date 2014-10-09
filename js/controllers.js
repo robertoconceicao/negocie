@@ -16,7 +16,7 @@ negocieControllers.controller('contactController', function ($scope) {
     $scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-negocieControllers.controller('anuncioController', ['$scope', '$http', 'fileUpload', 'promiseTracker', '$timeout', function ($scope, $http, $fileUpload, $promiseTracker, $timeout) {
+negocieControllers.controller('anuncioController', ['$scope', '$http', '$location','fileUpload', 'promiseTracker', '$timeout', function ($scope, $http, $location, $fileUpload, $promiseTracker, $timeout) {
         $scope.message = 'Cadastro de an�ncio';
         $scope.anuncio = {};
         $scope.fotos = [];
@@ -56,6 +56,9 @@ negocieControllers.controller('anuncioController', ['$scope', '$http', 'fileUplo
                         $scope.messages = 'Anúncio cadastrado com sucesso!';
                         $scope.error = null;
                         console.log(data);
+                        $timeout(function(){
+                        	$location.path("/listaAnuncios");                        	
+                        }, 2000);
                     })
                     .error(function (data, status, headers, config)
                     {
